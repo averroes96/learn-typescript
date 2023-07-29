@@ -27,3 +27,22 @@ const showDetails = (name: string, age: number, salary: number): string | boolea
 }
 
 showDetails("ada", 26, 10000)
+
+// with objects
+
+let myObject: {
+  id: number,
+  readonly username: string,
+  hired?: boolean,
+  skills: {
+    1: string,
+    2: string
+  }
+} = {
+  id: 101,
+  username: "Averroes",
+  skills: {
+    1: "Python",
+    2: "JavaScript"
+  }
+}

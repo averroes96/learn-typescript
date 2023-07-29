@@ -19,4 +19,12 @@ const showDetails = (name, age, salary) => {
     return true;
 };
 showDetails("ada", 26, 10000);
+let myObject = {
+    id: 101,
+    username: "Averroes",
+    skills: {
+        1: "Python",
+        2: "JavaScript"
+    }
+};
 //# sourceMappingURL=type_annotation.js.map
