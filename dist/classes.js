@@ -11,14 +11,20 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var _Employer_username, _Employer_salary;
-class Employer {
+class Model {
+    constructor() { this.id = Model.counter; }
+}
+Model.counter = 0;
+class Employer extends Model {
     static get created() {
         return Employer._created;
     }
     static set created(value) {
         Employer._created = value;
     }
-    constructor(username, salary) {
+    constructor(username, salary, theme) {
+        super();
+        this.theme = theme;
         _Employer_username.set(this, void 0);
         _Employer_salary.set(this, void 0);
         __classPrivateFieldSet(this, _Employer_username, username, "f");
@@ -27,6 +33,29 @@ class Employer {
             return `${__classPrivateFieldGet(this, _Employer_username, "f")} (${__classPrivateFieldGet(this, _Employer_salary, "f")})`;
         };
         Employer.created++;
+    }
+    create() {
+        this.created_at = new Date();
+        Employer.counter++;
+        console.log('created..');
+    }
+    update() {
+        this.updated_at = new Date();
+        console.log('updated..');
+    }
+    delete() {
+        this.deleted_at = new Date();
+        Employer.counter--;
+        console.log('deleted..');
+    }
+    get() {
+        throw new Error("Not implemented yet");
+    }
+    all() {
+        throw new Error("Not implemented yet");
+    }
+    save() {
+        console.log('saved.');
     }
     get username() {
         return __classPrivateFieldGet(this, _Employer_username, "f");
@@ -45,12 +74,27 @@ _Employer_username = new WeakMap(), _Employer_salary = new WeakMap();
 Employer._created = 0;
 console.log('====================================');
 console.log(Employer.created);
-let averroes = new Employer("averroes", 10000);
+let averroes = new Employer("averroes", 10000, true);
 console.log(Employer.created);
 console.log('====================================');
 console.log('====================================');
 console.log(averroes.username);
 console.log(averroes.salary);
+console.log(averroes.theme);
 console.log(averroes.toString());
+console.log('====================================');
+console.log('====================================');
+console.log(Employer.counter);
+console.log(averroes.created_at);
+console.log(averroes.updated_at);
+console.log(averroes.deleted_at);
+averroes.create();
+console.log(Employer.counter);
+averroes.update();
+averroes.delete();
+console.log(Employer.counter);
+console.log(averroes.created_at);
+console.log(averroes.updated_at);
+console.log(averroes.deleted_at);
 console.log('====================================');
 //# sourceMappingURL=classes.js.map

@@ -1,9 +1,35 @@
-class Employer {
+interface Settings {
+    font?: string
+    theme: boolean
+    save(): void
+}
+
+abstract class Model {
+
+    id?: number
+    created_at?: Date
+    updated_at?: Date
+    deleted_at?: Date
+
+    static counter = 0
+
+    constructor() {this.id = Model.counter}
+
+    abstract create(): void
+    abstract update(): void
+    abstract delete(): void
+
+    abstract get(): Model
+    abstract all(): Array<Model>
+}
+
+class Employer extends Model implements Settings {
     #username: string
     #salary: number
     toString: () => string
 
     private static _created: number = 0
+
     public static get created(): number {
         return Employer._created
     }
@@ -11,13 +37,46 @@ class Employer {
         Employer._created = value
     }
 
-    constructor(username: string, salary: number | string) {
+    constructor(username: string, salary: number | string, public theme: boolean) {
+        super()
+
         this.#username = username
         this.#salary = Number.parseInt(salary.toString())
         this.toString = () => {
             return `${this.#username} (${this.#salary})`
         }
         Employer.created++
+    }
+
+    create(): void {
+        this.created_at = new Date()
+        Employer.counter++
+
+        console.log('created..')
+    }
+
+    update(): void {
+        this.updated_at = new Date()
+        console.log('updated..')
+    }
+
+    delete(): void {
+        this.deleted_at = new Date()
+        Employer.counter--
+
+        console.log('deleted..')
+    }
+
+    get(): Employer {
+        throw new Error("Not implemented yet");
+    }
+
+    all(): Employer[] {
+        throw new Error("Not implemented yet");
+    }
+
+    save(): void {
+        console.log('saved.')
     }
 
     
@@ -43,7 +102,7 @@ class Employer {
 }
 console.log('====================================');
 console.log(Employer.created);
-let averroes = new Employer("averroes", 10000)
+let averroes = new Employer("averroes", 10000, true)
 console.log(Employer.created);
 console.log('====================================');
 
@@ -52,5 +111,25 @@ console.log('====================================');
 // console.log(averroes.#salary); CANNOT DO THIS
 console.log(averroes.username);
 console.log(averroes.salary);
+console.log(averroes.theme)
 console.log(averroes.toString());
+console.log('====================================');
+
+console.log('====================================');
+console.log(Employer.counter);
+console.log(averroes.created_at);
+console.log(averroes.updated_at);
+console.log(averroes.deleted_at);
+
+averroes.create();
+console.log(Employer.counter);
+
+averroes.update();
+averroes.delete();
+
+console.log(Employer.counter);
+console.log(averroes.created_at);
+console.log(averroes.updated_at);
+console.log(averroes.deleted_at);
+
 console.log('====================================');
