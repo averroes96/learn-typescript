@@ -97,4 +97,26 @@ console.log(averroes.created_at);
 console.log(averroes.updated_at);
 console.log(averroes.deleted_at);
 console.log('====================================');
+class Collection {
+    constructor() {
+        this.data = [];
+    }
+    add(element) {
+        this.data.push(element);
+    }
+}
+const books = new Collection();
+books.add({
+    title: "book 1",
+    type: "Book",
+    isbn: 32343
+});
+books.add({
+    title: "book 2",
+    type: "Book",
+    isbn: 47387
+});
+console.log('====================================');
+console.log(books);
+console.log('====================================');
 //# sourceMappingURL=classes.js.map

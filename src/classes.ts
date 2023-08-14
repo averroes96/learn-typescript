@@ -19,8 +19,8 @@ abstract class Model {
     abstract update(): void
     abstract delete(): void
 
-    abstract get(): Model
-    abstract all(): Array<Model>
+    abstract get<T>(): T
+    abstract all<T>(): Array<T>
 }
 
 class Employer extends Model implements Settings {
@@ -67,11 +67,11 @@ class Employer extends Model implements Settings {
         console.log('deleted..')
     }
 
-    get(): Employer {
+    get<Employer>(): Employer {
         throw new Error("Not implemented yet");
     }
 
-    all(): Employer[] {
+    all<Employer>(): Employer[] {
         throw new Error("Not implemented yet");
     }
 
@@ -132,4 +132,43 @@ console.log(averroes.created_at);
 console.log(averroes.updated_at);
 console.log(averroes.deleted_at);
 
+console.log('====================================');
+
+
+interface Book {
+    title: string
+    type: string
+    isbn: number
+}
+
+interface Game {
+    type: string
+    title: string
+    style: string
+    price: string
+}
+
+class Collection<T> {
+
+    data : T[] = []
+
+    add(element: T): void {
+        this.data.push(element)
+    }
+}
+
+const books = new Collection<Book>()
+books.add({
+    title: "book 1",
+    type: "Book",
+    isbn: 32343
+})
+books.add({
+    title: "book 2",
+    type: "Book",
+    isbn: 47387
+})
+
+console.log('====================================');
+console.log(books);
 console.log('====================================');
